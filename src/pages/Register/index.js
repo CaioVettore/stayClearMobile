@@ -1,4 +1,5 @@
 import React from 'react'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 import {
     View,
     Image,
@@ -12,41 +13,48 @@ import {
 } from 'react-native'
 import background from '../../assets/background.jpg'
 import logo from '../../assets/logo.png'
-function Register() {
+function Register(props) {
     return (
         <ScrollView>
-        <ImageBackground source={background} style={styles.background} >
+            <ImageBackground source={background} style={styles.background} >
+                <View style={styles.viewReturn}>
+                    <TouchableOpacity onPress={() => props.navigation.navigate('Login')}>
+                        <Icon name='arrow-back' size={40} color='#570985' ></Icon>
+                    </TouchableOpacity>
+                </View>
 
 
-            <Image source={logo} />
+                <Image source={logo} />
 
-            <View style={styles.viewRegister}>
+                <View style={styles.viewRegister}>
 
-                <TextInput style={styles.textInput} placeholder="Digite seu nome" />
-                <TextInput style={styles.textInput} placeholder="Digite seu e-mail" />
-                <TextInput style={styles.textInput} placeholder="DIgite sua senha" />
+                    <TextInput style={styles.textInput} placeholder="Digite seu nome" />
+                    <TextInput style={styles.textInput} placeholder="Digite seu e-mail" />
+                    <TextInput style={styles.textInput} placeholder="DIgite sua senha" />
 
-                <View style={styles.picker}>
+                    <View style={styles.picker}>
 
-                    <Picker >
-                        <Picker.Item label="Desenvolvedor" value="Desenvolvedor" />
-                        <Picker.Item label="Estudante" value="Estudante" />
-                        <Picker.Item label="Professor" value="Professor" />
-                        <Picker.Item label="Fisico" value="Fisico" />
-                    </Picker>
+                        <Picker >
+                            <Picker.Item label="Desenvolvedor" value="Desenvolvedor" />
+                            <Picker.Item label="Estudante" value="Estudante" />
+                            <Picker.Item label="Professor" value="Professor" />
+                            <Picker.Item label="Fisico" value="Fisico" />
+                        </Picker>
+
+                    </View>
+                    <TouchableOpacity style={styles.btn}>
+                        <Text style={styles.textBtn}>
+                            Cadastrar
+                    </Text>
+                    </TouchableOpacity>
+
+
 
                 </View>
-                <TouchableOpacity style={styles.btn}>
-                    <Text style={styles.textBtn}>
-                        Cadastrar
-                    </Text>
-                </TouchableOpacity>
-
-            </View>
 
 
 
-        </ImageBackground>
+            </ImageBackground>
         </ScrollView>
 
     )
@@ -81,7 +89,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#2f3236',
         padding: 15,
         borderRadius: 10,
-        marginTop: 40,
+        marginTop: 15,
         textAlign: 'center',
 
     },
@@ -91,13 +99,20 @@ const styles = StyleSheet.create({
     },
     picker: {
         marginTop: 40,
-        borderColor:'#570985',
-        borderWidth:2,
-        backgroundColor:'#ffffff',
-        borderRadius:10
+        borderColor: '#570985',
+        borderWidth: 2,
+        backgroundColor: '#ffffff',
+        borderRadius: 10
 
+    },
+    iconsStyle: {
+        position: "absolute",
+        right: 0,
+        fontSize: 20,
+    },
+    viewReturn:{
+        paddingRight:'85%'
     }
-
 
 
 })

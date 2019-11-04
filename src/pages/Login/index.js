@@ -4,18 +4,22 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import background from '../../assets/background.jpg' //Imagem de fundo
 import logo from '../../assets/logo.png'
 
-function Login() {
+function Login(props) {
+    
     return (
         <ImageBackground source={background} style={styles.background}>
             <Image source={logo} />
 
             <View style={styles.viewLogin}>
-                <View style={styles.sectionStyle}>
-                    <Icon name="email" color="#ffffff" style={styles.iconsStyle} ></Icon>
-                    <TextInput placeholder='Digite seu e-mail' placeholderTe0xtColor='#fff' style={styles.input} />
-                </View>
+
+
                 <View>
-                    <Icon name="lock" color="#ffffff" ></Icon>
+                    <Icon name="email" color="#ffffff" style={styles.iconsStyle} ></Icon>
+                    <TextInput placeholder='Digite seu e-mail' placeholderTextColor='#fff' style={styles.input} />
+                </View>
+
+                <View style={styles.viewPassword}>
+                    <Icon name="lock" color="#ffffff" style={styles.iconsStyle} ></Icon>
                     <TextInput placeholder='Digite sua senha' placeholderTextColor='#fff' style={styles.input} />
                 </View>
 
@@ -23,9 +27,12 @@ function Login() {
                     <Text>Login</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Register')}>
                     <Text>Cadastrar</Text>
                 </TouchableOpacity>
+
+
+
             </View>
         </ImageBackground>
     )
@@ -45,26 +52,28 @@ const styles = StyleSheet.create({
         marginTop: 40
     },
     input: {
+        width: '100%',
+        padding: 0,
+        paddingLeft: 30,
+        color: '#ffffff',
+        margin: 0,
         borderBottomColor: '#fff',
         borderBottomWidth: 1,
     },
     button: {
         backgroundColor: '#fff',
         marginTop: 15,
-        padding: 5,
-        alignItems: 'center'
-    },
-    sectionStyle: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center'
+        padding: 15,
+        alignItems: 'center',
+        borderRadius: 10
     },
     iconsStyle: {
         position: "absolute",
-        paddingRight: 280,
-        resizeMode: 'stretch',
-        fontSize: 30
+        right: 0,
+        fontSize: 20,
+    },
+    viewPassword: {
+        marginTop: 20,
     }
 })
 
