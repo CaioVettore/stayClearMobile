@@ -4,12 +4,16 @@ import { createStackNavigator } from 'react-navigation-stack';
 //Nossas paginass
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Perfil from './pages/Perfil'
 
 const routes = createAppContainer(
 
     createSwitchNavigator({
+        
+        Perfil,
         Login,
-        Register
+        Register,
+        
     })
 )
 
