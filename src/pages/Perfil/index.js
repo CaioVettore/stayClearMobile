@@ -3,33 +3,55 @@ import { View, Text, StyleSheet, ImageBackground, Image, TextInput, TouchableOpa
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import background from '../../assets/background.jpg'
 import profile from '../../assets/profile.jpg'
+import ImagePicker from 'react-native-image-picker';
 
 class Perfil extends React.Component {
 
     //estado da nossa apk
+
     state = {
-        avatar: profile,
-        name: "caio",
-        age:"19",
-        height:"1,76"
+        //photo, ele ira armazenar o caminho do nosso avatar no smartphone
+        photo: ''
     }
     //alterando imagem de perfil
-    handleChoseAvatar() {
+    handleChooseAvatar() {
+
         
-        console.log(this.state)
+        ImagePicker.showImagePicker(response => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            } else {
+                const source = { uri: response.uri };
+
+                this.setState({
+                    photo:source
+                })
+
+              console.log(source)
+            }
+        });
     }
 
     render() {
         //pegando nosso avatar de dentro do state
-        const { avatar,name,age,height } = this.state
+        const { photo } = this.state
         return (
             <ImageBackground source={background} style={styles.background} >
                 {/* <Icon name="dehaze" color="#2F3236" style={styles.menu} ></Icon> */}
-                
-                <Text>(name,age)</Text>
 
-                <TouchableOpacity onPress={() => this.handleChoseAvatar()}>
+                <TouchableOpacity onPress={() => this.handleChooseAvatar()}>
+                    {
+                    photo ?
+                    <Image source={photo} style={styles.conProfile}/>
+                    :
                     < Image source={profile} style={styles.conProfile} ></Image>
+                }
                 </TouchableOpacity>
 
 
