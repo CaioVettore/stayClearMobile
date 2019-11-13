@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Image, ImageBackground } from 'react-native'
+import { View, Text, StyleSheet, Image, ImageBackground, TouchableOpacity } from 'react-native'
 import background from '../../assets/background.jpg'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import IconIcons from 'react-native-vector-icons/Ionicons'
 
 class AddFriends extends Component {
     render() {
@@ -18,9 +19,15 @@ class AddFriends extends Component {
 
                 </View>
                 <View style={styles.containerIcon}>
-                    <Icon name='replay' color='#000' style={styles.iconsStyle} />
-                    <Icon name='replay' color='#000' style={styles.iconsStyle} />
-                    <Icon name='replay' color='#000' style={styles.iconsStyle} />
+                    <TouchableOpacity >
+                        <Icon name='add-circle' color='#025223' style={styles.iconsStyle} />
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Icon name='remove-circle' color='#520202' style={styles.iconsStyle} />
+                    </TouchableOpacity>
+                    <TouchableOpacity >
+                        <IconIcons name='md-refresh-circle' color='#9e9c06' style={styles.iconsStyle} />
+                    </TouchableOpacity>
 
                 </View>
             </ImageBackground>
@@ -44,39 +51,44 @@ const styles = StyleSheet.create({
     userCard: {
         width: 387,
         height: 511,
-        backgroundColor: '#8754C9',
+        backgroundColor: '#2D3237',
         borderRadius: 15,
-        opacity: 0.95,
+        opacity: 0.9,
     },
     userCardText: {
         width: 387,
         height: 164,
-        backgroundColor: '#505B77',
+        backgroundColor: '#2F3236',
         borderBottomLeftRadius: 15,
         borderBottomRightRadius: 15,
         opacity: 0.85,
         alignItems: 'center',
 
+
     },
     textUserCardText: {
         color: '#fff',
-        fontSize: 20
+        fontSize: 23,
+        marginTop: 10,
+
     },
     iconsStyle: {
-        right: 0,
-        width: 99,
-        fontSize: 80,
-        justifyContent: 'center'
+        fontSize: 100,
+        justifyContent: 'center',
+        
+    
 
     },
     containerIcon: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
-        marginTop:80,
-        alignItems:'center'
+        marginTop: 30,
+        alignItems: 'center',
        
-    }
+    },
+    
+
 })
 
 export default AddFriends
