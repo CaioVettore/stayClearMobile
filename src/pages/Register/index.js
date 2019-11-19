@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import {
     View,
@@ -11,53 +11,67 @@ import {
     Text,
     ScrollView,
 } from 'react-native'
+
 import background from '../../assets/background.jpg'
 import logo from '../../assets/logo.png'
-function Register(props) {
-    return (
-        <ScrollView>
-            <ImageBackground source={background} style={styles.background} >
-                <View style={styles.viewReturn}>
-                    <TouchableOpacity onPress={() => props.navigation.navigate('Login')}>
-                        <Icon name='arrow-back' size={40} color='#570985' ></Icon>
-                    </TouchableOpacity>
-                </View>
+
+class Register extends Component {
+
+    state = {
+
+        name:'',
+        email:'',
+        password:'',
+        category:''
+    }
+
+    render() {
+
+        return (
+            <ScrollView>
+                <ImageBackground source={background} style={styles.background} >
+                    <View style={styles.viewReturn}>
+                        <TouchableOpacity onPress={() =>this.props.navigation.navigate('Login')}>
+                            <Icon name='arrow-back' size={40} color='#570985' ></Icon>
+                        </TouchableOpacity>
+                    </View>
 
 
-                <Image source={logo} />
+                    <Image source={logo} />
 
-                <View style={styles.viewRegister}>
+                    <View style={styles.viewRegister}>
 
-                    <TextInput style={styles.textInput} placeholder="Digite seu nome" />
-                    <TextInput style={styles.textInput} placeholder="Digite seu e-mail" />
-                    <TextInput style={styles.textInput} placeholder="DIgite sua senha" />
+                        <TextInput style={styles.textInput} placeholder="Digite seu nome" />
+                        <TextInput style={styles.textInput} placeholder="Digite seu e-mail" />
+                        <TextInput style={styles.textInput} placeholder="DIgite sua senha" />
 
-                    <View style={styles.picker}>
+                        <View style={styles.picker}>
 
-                        <Picker >
-                            <Picker.Item label="Desenvolvedor" value="Desenvolvedor" />
-                            <Picker.Item label="Estudante" value="Estudante" />
-                            <Picker.Item label="Professor" value="Professor" />
-                            <Picker.Item label="Fisico" value="Fisico" />
-                        </Picker>
+                            <Picker >
+                                <Picker.Item label="Desenvolvedor" value="Desenvolvedor" />
+                                <Picker.Item label="Estudante" value="Estudante" />
+                                <Picker.Item label="Professor" value="Professor" />
+                                <Picker.Item label="Fisico" value="Fisico" />
+                            </Picker>
+
+                        </View>
+                        <TouchableOpacity style={styles.btn}>
+                            <Text style={styles.textBtn}>
+                                Cadastrar
+                    </Text>
+                        </TouchableOpacity>
+
+
 
                     </View>
-                    <TouchableOpacity style={styles.btn}>
-                        <Text style={styles.textBtn}>
-                            Cadastrar
-                    </Text>
-                    </TouchableOpacity>
 
 
 
-                </View>
+                </ImageBackground>
+            </ScrollView>
 
-
-
-            </ImageBackground>
-        </ScrollView>
-
-    )
+        )
+    }
 }
 
 const styles = StyleSheet.create({
@@ -110,8 +124,8 @@ const styles = StyleSheet.create({
         right: 0,
         fontSize: 20,
     },
-    viewReturn:{
-        paddingRight:'85%'
+    viewReturn: {
+        paddingRight: '85%'
     }
 
 

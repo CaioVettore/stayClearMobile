@@ -1,41 +1,52 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { View, Text, ImageBackground, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import background from '../../assets/background.jpg' //Imagem de fundo
 import logo from '../../assets/logo.png'
 
-function Login(props) {
-    
-    return (
-        <ImageBackground source={background} style={styles.background}>
-            <Image source={logo} />
+class Login extends Component {
 
-            <View style={styles.viewLogin}>
+    state = {
+        email: '',
+        password: ''
+    }
+    handleSubmit = () => {
+        console.log(this.state)
+    }
+
+    render() {
+
+        return (
+            <ImageBackground source={background} style={styles.background} >
+                <Image source={logo} />
+
+                <View style={styles.viewLogin}>
 
 
-                <View>
-                    <Icon name="email" color="#ffffff" style={styles.iconsStyle} ></Icon>
-                    <TextInput placeholder='Digite seu e-mail' placeholderTextColor='#fff' style={styles.input} />
+                    <View>
+                        <Icon name="email" color="#ffffff" style={styles.iconsStyle} ></Icon>
+                        <TextInput placeholder='Digite seu e-mail' placeholderTextColor='#fff' style={styles.input} onChangeText={(text) => this.setState({ email: text })} />
+                    </View>
+
+                    <View style={styles.viewPassword}>
+                        <Icon name="lock" color="#ffffff" style={styles.iconsStyle} ></Icon>
+                        <TextInput placeholder='Digite sua senha' placeholderTextColor='#fff' style={styles.input} onChangeText={(text) => this.setState({ password: text })} />
+                    </View>
+
+                    <TouchableOpacity style={styles.button} onPress={() => this.handleSubmit()} >
+                        <Text>Login</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Register')}>
+                        <Text>Cadastrar</Text>
+                    </TouchableOpacity>
+
+
+
                 </View>
-
-                <View style={styles.viewPassword}>
-                    <Icon name="lock" color="#ffffff" style={styles.iconsStyle} ></Icon>
-                    <TextInput placeholder='Digite sua senha' placeholderTextColor='#fff' style={styles.input} />
-                </View>
-
-                <TouchableOpacity style={styles.button}>
-                    <Text>Login</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Register')}>
-                    <Text>Cadastrar</Text>
-                </TouchableOpacity>
-
-
-
-            </View>
-        </ImageBackground>
-    )
+            </ImageBackground>
+        )
+    }
 }
 
 //Nossos estilos de páginas

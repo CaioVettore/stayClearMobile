@@ -11,16 +11,17 @@ import Conversations from './pages/Conversations'
 const routes = createAppContainer(
 
     createSwitchNavigator({
-        
+
         Conversations,
         Perfil,
         Login,
         Register,
         AddFriends
-        
-    },{
-        initialRouteName:'Conversations'
-    })
+
+    },
+        {
+            initialRouteName: 'Login'
+        })
 )
 
 export default routes
