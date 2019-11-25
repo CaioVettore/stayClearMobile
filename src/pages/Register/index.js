@@ -10,6 +10,7 @@ import {
     TouchableOpacity,
     Text,
     ScrollView,
+    Alert
 } from 'react-native'
 
 import background from '../../assets/background.jpg'
@@ -19,10 +20,14 @@ class Register extends Component {
 
     state = {
 
-        name:'',
-        email:'',
-        password:'',
-        category:''
+        name: '',
+        email: '',
+        password: '',
+        category: ''
+    }
+    //logica do btn
+    handleSubmit = () => {
+        Alert.alert('Usuario cadastrado', `seu nome é: ${this.state.name} seu email é: ${this.state.email} sua categoria é: ${this.state.category}`)
     }
 
     render() {
@@ -31,7 +36,7 @@ class Register extends Component {
             <ScrollView>
                 <ImageBackground source={background} style={styles.background} >
                     <View style={styles.viewReturn}>
-                        <TouchableOpacity onPress={() =>this.props.navigation.navigate('Login')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
                             <Icon name='arrow-back' size={40} color='#570985' ></Icon>
                         </TouchableOpacity>
                     </View>
@@ -41,13 +46,13 @@ class Register extends Component {
 
                     <View style={styles.viewRegister}>
 
-                        <TextInput style={styles.textInput} placeholder="Digite seu nome" />
-                        <TextInput style={styles.textInput} placeholder="Digite seu e-mail" />
-                        <TextInput style={styles.textInput} placeholder="DIgite sua senha" />
+                        <TextInput style={styles.textInput} placeholder="Digite seu nome" onChangeText={(text) => this.setState({ name: text })} />
+                        <TextInput style={styles.textInput} placeholder="Digite seu e-mail" onChangeText={(text) => this.setState({ email: text })} />
+                        <TextInput style={styles.textInput} placeholder="DIgite sua senha" onChangeText={(text) => this.setState({ password: text })} secureTextEntry ={true}/>
 
                         <View style={styles.picker}>
 
-                            <Picker >
+                            <Picker selectedValue={this.state.category} onValueChange={(value) => this.setState({ category: value })} >
                                 <Picker.Item label="Desenvolvedor" value="Desenvolvedor" />
                                 <Picker.Item label="Estudante" value="Estudante" />
                                 <Picker.Item label="Professor" value="Professor" />
@@ -55,7 +60,7 @@ class Register extends Component {
                             </Picker>
 
                         </View>
-                        <TouchableOpacity style={styles.btn}>
+                        <TouchableOpacity style={styles.btn} onPress={() => this.handleSubmit()}>
                             <Text style={styles.textBtn}>
                                 Cadastrar
                     </Text>
@@ -87,13 +92,12 @@ const styles = StyleSheet.create({
 
     },
     viewRegister: {
-        width: "80%",
+        width: "70%",
 
 
 
     },
     textInput: {
-        marginTop: 20,
         borderBottomColor: '#2f3236',
         borderBottomWidth: 1,
         textAlign: 'center'
@@ -103,7 +107,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#2f3236',
         padding: 15,
         borderRadius: 10,
-        marginTop: 15,
+        marginTop: 12,
         textAlign: 'center',
 
     },

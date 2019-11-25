@@ -20,7 +20,7 @@ const routes = createAppContainer(
 
     },
         {
-            initialRouteName: 'Login'
+            initialRouteName: 'Register'
         })
 )
 
