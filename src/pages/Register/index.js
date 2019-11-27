@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import Axios from 'axios'
+
 import {
     View,
     Image,
@@ -16,6 +18,7 @@ import {
 import background from '../../assets/background.jpg'
 import logo from '../../assets/logo.png'
 
+
 class Register extends Component {
 
     state = {
@@ -26,8 +29,9 @@ class Register extends Component {
         category: ''
     }
     //logica do btn
-    handleSubmit = () => {
-        Alert.alert('Usuario cadastrado', `seu nome é: ${this.state.name} seu email é: ${this.state.email} sua categoria é: ${this.state.category}`)
+    handleSubmit = async () => {
+        const testeAxios = await Axios.post('http://10.51.47.66:3334/users',this.state)
+        console.log(testeAxios)
     }
 
     render() {
