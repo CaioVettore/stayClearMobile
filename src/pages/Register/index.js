@@ -12,29 +12,42 @@ import {
     TouchableOpacity,
     Text,
     ScrollView,
-    Alert
+    Alert,
+
 } from 'react-native'
 
 import background from '../../assets/background.jpg'
 import logo from '../../assets/logo.png'
-
+import Error from '../../components/Error'
 
 class Register extends Component {
 
     state = {
+        user: {
+            name: '',
+            email: '',
+            password: '',
+            category: ''
+        },
 
-        name: '',
-        email: '',
-        password: '',
-        category: ''
+        error: false,
+        errorText: ''
+
     }
     //logica do btn
     handleSubmit = async () => {
-        const testeAxios = await Axios.post('http://10.51.47.66:3334/users',this.state)
-        console.log(testeAxios)
+        const { data } = await Axios.post('http://10.51.47.66:3334/users', this.state.user)
+        console.log(data)
+
+        //Vericar se foi retornado um erro do nosso backend
+        if (data.error) {
+            this.setState({ error: true, errorText: data.error })
+        }
     }
 
     render() {
+
+        const { error, errorText } = this.state
 
         return (
             <ScrollView>
@@ -48,15 +61,22 @@ class Register extends Component {
 
                     <Image source={logo} />
 
+                    {/* Nosso componente de error */}
+                    {   
+                        error &&
+
+                        <Error icon='warning' text={errorText} />
+                    }
+
                     <View style={styles.viewRegister}>
 
-                        <TextInput style={styles.textInput} placeholder="Digite seu nome" onChangeText={(text) => this.setState({ name: text })} />
-                        <TextInput style={styles.textInput} placeholder="Digite seu e-mail" onChangeText={(text) => this.setState({ email: text })} />
-                        <TextInput style={styles.textInput} placeholder="DIgite sua senha" onChangeText={(text) => this.setState({ password: text })} secureTextEntry ={true}/>
+                        <TextInput style={styles.textInput} placeholder="Digite seu nome" onChangeText={(text) => this.setState({ user: { ...this.state.user, name: text } })} />
+                        <TextInput style={styles.textInput} placeholder="Digite seu e-mail" onChangeText={(text) => this.setState({ user: { ...this.state.user, email: text } })} />
+                        <TextInput style={styles.textInput} placeholder="DIgite sua senha" onChangeText={(text) => this.setState({ user: { ...this.state.user, password: text } })} secureTextEntry={true} />
 
                         <View style={styles.picker}>
 
-                            <Picker selectedValue={this.state.category} onValueChange={(value) => this.setState({ category: value })} >
+                            <Picker selectedValue={this.state.category} onValueChange={(value) => this.setState({ user: { category: value } })} >
                                 <Picker.Item label="Desenvolvedor" value="Desenvolvedor" />
                                 <Picker.Item label="Estudante" value="Estudante" />
                                 <Picker.Item label="Professor" value="Professor" />

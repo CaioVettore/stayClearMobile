@@ -3,6 +3,7 @@ import { View, Text, ImageBackground, StyleSheet, TextInput, TouchableOpacity, I
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import background from '../../assets/background.jpg' //Imagem de fundo
 import logo from '../../assets/logo.png'
+import Error from '../../components/Error'
 
 class Login extends Component {
 
@@ -18,9 +19,12 @@ class Login extends Component {
 
         return (
             <ImageBackground source={background} style={styles.background} >
-                <Image source={logo} />
+                <Image source={logo} /> 
+                
+                <Error icon='block' text='LOGIN ou SENHA invalido!' />
 
                 <View style={styles.viewLogin}>
+
 
 
                     <View>
