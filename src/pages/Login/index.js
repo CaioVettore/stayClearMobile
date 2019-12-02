@@ -4,6 +4,10 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import background from '../../assets/background.jpg' //Imagem de fundo
 import logo from '../../assets/logo.png'
 import Error from '../../components/Error'
+import Axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
+
+
 
 class Login extends Component {
 
@@ -11,16 +15,31 @@ class Login extends Component {
         email: '',
         password: ''
     }
-    handleSubmit = () => {
-        console.log(this.state)
+    //Func Responsalvel pelo login
+    handleSubmit = async () => {
+        //Enviando dados de usuario para rota de autenticação
+        const response = await Axios.post('http://10.51.47.66:3334/auth', { email: this.state.email, password: this.state.password })
+
+        console.log(response.data)
+
+        this.state.setStorage(data)
+    }
+    //armazenar dados do usuario no Storage
+    setStorage =  async() => {
+       await AsyncStorage.setItem('@user', 'stored value')
+       
+       const value = AsyncStorage.getItem('@user')
+       console.log.value
     }
 
+
     render() {
+        console.log(this.state)
 
         return (
             <ImageBackground source={background} style={styles.background} >
-                <Image source={logo} /> 
-                
+                <Image source={logo} />
+
                 <Error icon='block' text='LOGIN ou SENHA invalido!' />
 
                 <View style={styles.viewLogin}>
