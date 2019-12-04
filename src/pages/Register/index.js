@@ -40,8 +40,8 @@ class Register extends Component {
         console.log(data)
 
         //Vericar se foi retornado um erro do nosso backend
-        if (data.erro) {
-            this.setState({ error: true, errorText: data.erro })
+        if (data.error) {
+            this.setState({ error: true, errorText: data.error })
         }
     }
 

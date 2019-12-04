@@ -3,44 +3,63 @@ import { View, Text, ImageBackground, StyleSheet, TextInput, TouchableOpacity, I
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import background from '../../assets/background.jpg' //Imagem de fundo
 import logo from '../../assets/logo.png'
-import Error from '../../components/Error'
+
 import Axios from 'axios'
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-community/async-storage';
 
-
+import Error from '../../components/Error'
 
 class Login extends Component {
 
     state = {
         email: '',
-        password: ''
+        password: '',
+        error: false,
+        erroText: '',
     }
+
     //Func Responsalvel pelo login
     handleSubmit = async () => {
         //Enviando dados de usuario para rota de autenticação
-        const response = await Axios.post('http://10.51.47.66:3334/auth', { email: this.state.email, password: this.state.password })
+        const { data } = await Axios.post('http://10.51.47.24:3334/auth', { 
+            email: this.state.email, 
+            password: this.state.password
+         })
 
-        console.log(response.data)
+        //passando dados do usuário para armazenar no local storage
+        if (data.token) {
+            this.setStorage(data)
+            this.props.navigation.navigate('Perfil')
 
-        this.state.setStorage(data)
+        }
+        //Vericar se foi retornado um erro do nosso backend
+        if (data.error) {
+            this.setState({ error: true, errorText: data.erro })
+        }
     }
+
     //armazenar dados do usuario no Storage
-    setStorage =  async() => {
-       await AsyncStorage.setItem('@user', 'stored value')
-       
-       const value = AsyncStorage.getItem('@user')
-       console.log.value
+    setStorage = async (data) => {
+        //armazena nossos dados dentro da key @user
+        await AsyncStorage.setItem('@user', data)
     }
 
 
     render() {
-        console.log(this.state)
+        const { error, errorText } = this.state
+
 
         return (
             <ImageBackground source={background} style={styles.background} >
                 <Image source={logo} />
 
-                <Error icon='block' text='LOGIN ou SENHA invalido!' />
+
+                {
+                    error &&
+
+                    <Error icon='warning' text={errorText} />
+                }
+
 
                 <View style={styles.viewLogin}>
 
