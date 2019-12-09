@@ -4,19 +4,28 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import background from '../../assets/background.jpg'
 import profile from '../../assets/profile.jpg'
 import ImagePicker from 'react-native-image-picker';
-
+import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
 class Perfil extends React.Component {
 
     //estado da nossa apk
 
     state = {
         //photo, ele ira armazenar o caminho do nosso avatar no smartphone
-        photo: ''
+        photo: '',
+        description: '',
+        telephone: ''
     }
     //alterando imagem de perfil
+
+    componentDidMout(){
+
+        const user = AsyncStorage.getItem('@user')
+    }
+
     handleChooseAvatar() {
 
-        
+
         ImagePicker.showImagePicker(response => {
             console.log('Response = ', response);
 
@@ -30,12 +39,19 @@ class Perfil extends React.Component {
                 const source = { uri: response.uri };
 
                 this.setState({
-                    photo:source
+                    photo: source
                 })
 
-              console.log(source)
+                console.log(source)
             }
         });
+    }
+    //Envia dados do usuario
+    handleSubmit(){
+
+        const { data } = await Axios.post(`http://10.51.47.24:3334/users/${idDoUsuaio}`, this.state )    
+        
+
     }
 
     render() {
@@ -47,11 +63,11 @@ class Perfil extends React.Component {
 
                 <TouchableOpacity onPress={() => this.handleChooseAvatar()}>
                     {
-                    photo ?
-                    <Image source={photo} style={styles.conProfile}/>
-                    :
-                    < Image source={profile} style={styles.conProfile} ></Image>
-                }
+                        photo ?
+                            <Image source={photo} style={styles.conProfile} />
+                            :
+                            < Image source={profile} style={styles.conProfile} ></Image>
+                    }
                 </TouchableOpacity>
 
 
@@ -63,11 +79,11 @@ class Perfil extends React.Component {
 
                 </Text >
                     <View style={styles.portifolio} >
-                        <TextInput textAlign="center" multiline={true} numberOfLines={8} placeholder='inform your portfolio' style={styles.textArea}></TextInput>
+                        <TextInput textAlign="center" multiline={true} numberOfLines={8} placeholder='inform your portfolio' style={styles.textArea} onChangeText={(text) => this.setState({ description: text })}></TextInput>
                         <Icon name="edit" color="#570985" style={styles.iconsStyle} ></Icon>
                     </View>
 
-                    <TouchableOpacity style={styles.btn}>
+                    <TouchableOpacity style={styles.btn} onPress ={() => this.handleSubmit()}>
                         <Text style={styles.textBtn}>Add your friends</Text>
                     </TouchableOpacity>
 

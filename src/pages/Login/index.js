@@ -21,10 +21,10 @@ class Login extends Component {
     //Func Responsalvel pelo login
     handleSubmit = async () => {
         //Enviando dados de usuario para rota de autenticação
-        const { data } = await Axios.post('http://10.51.47.24:3334/auth', { 
-            email: this.state.email, 
+        const { data } = await Axios.post('http://10.51.47.24:3334/auth', {
+            email: this.state.email,
             password: this.state.password
-         })
+        })
 
         //passando dados do usuário para armazenar no local storage
         if (data.token) {
@@ -41,7 +41,7 @@ class Login extends Component {
     //armazenar dados do usuario no Storage
     setStorage = async (data) => {
         //armazena nossos dados dentro da key @user
-        await AsyncStorage.setItem('@user', data)
+        await AsyncStorage.setItem('@user', JSON.stringify(data))
     }
 
 
