@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import background from '../../assets/background.jpg'
 import profile from '../../assets/profile.jpg'
 import ImagePicker from 'react-native-image-picker';
-import axios from 'axios'
+import Axios from 'axios'
 import AsyncStorage from '@react-native-community/async-storage'
 class Perfil extends React.Component {
 
@@ -14,13 +14,30 @@ class Perfil extends React.Component {
         //photo, ele ira armazenar o caminho do nosso avatar no smartphone
         photo: '',
         description: '',
-        telephone: ''
+        telephone: '',
+        id: '',
+        token: '',
     }
     //alterando imagem de perfil
 
-    componentDidMout(){
+    //Nosso component DidMout
+    //DidMout é executado após renderizar nosso componente
+  async componentDidMount() {
 
-        const user = AsyncStorage.getItem('@user')
+        //pegando nosso user do local storage
+        const user = await AsyncStorage.getItem('@user')
+        console.log(user)
+
+        //transformando nossa string em objeto
+        const { userExists,token } = JSON.parse(user)
+
+        //setando o id do nosso usuario no estado
+        this.setState({ id: userExists.id, token: token })
+
+    
+
+
+
     }
 
     handleChooseAvatar() {
@@ -36,7 +53,7 @@ class Perfil extends React.Component {
             } else if (response.customButton) {
                 console.log('User tapped custom button: ', response.customButton);
             } else {
-                const source = { uri: response.uri };
+                const source =  response.uri;
 
                 this.setState({
                     photo: source
@@ -47,11 +64,18 @@ class Perfil extends React.Component {
         });
     }
     //Envia dados do usuario
-    handleSubmit(){
+    async handleSubmit() {
 
-        const { data } = await Axios.post(`http://10.51.47.24:3334/users/${idDoUsuaio}`, this.state )    
-        
+        //pegando o id do usuario do state
+        const { id, token } = this.state
 
+
+
+        //Enviado nossas propriedades do state para nossa rota de update
+        const { data } = await Axios.put(`http://10.51.47.24:3334/users/${id}`, this.state, {
+            headers: { Authorization: "Bearer " + token }
+
+        })
     }
 
     render() {
@@ -83,7 +107,7 @@ class Perfil extends React.Component {
                         <Icon name="edit" color="#570985" style={styles.iconsStyle} ></Icon>
                     </View>
 
-                    <TouchableOpacity style={styles.btn} onPress ={() => this.handleSubmit()}>
+                    <TouchableOpacity style={styles.btn} onPress={() => this.handleSubmit()}>
                         <Text style={styles.textBtn}>Add your friends</Text>
                     </TouchableOpacity>
 
