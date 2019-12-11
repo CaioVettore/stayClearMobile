@@ -7,6 +7,7 @@ import Register from './pages/Register'
 import Perfil from './pages/Perfil'
 import AddFriends from './pages/AddFriends'
 import Conversations from './pages/Conversations'
+import Chat from './pages/Chat'
 
 const routes = createAppContainer(
 
@@ -16,11 +17,12 @@ const routes = createAppContainer(
         Perfil,
         Login,
         Register,
-        AddFriends
+        AddFriends,
+        Chat
 
     },
         {
-            initialRouteName: 'Login'
+            initialRouteName: 'Chat'
         })
 )
 
