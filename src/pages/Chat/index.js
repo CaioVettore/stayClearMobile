@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Text, FlatList, TextInput, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Text, FlatList, TextInput, TouchableOpacity, } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const DATA = [
@@ -42,10 +42,13 @@ class Chat extends Component {
                         }
                     />
                 </View>
-                <View>
+
+                <View style={styles.viewMessage}>
+
                     <TextInput style={styles.message}></TextInput>
+
                     <TouchableOpacity>
-                    <Icon name="send" color="#000" style={styles.iconsStyle} ></Icon>
+                        <Icon name="send" style={styles.iconsStyle} ></Icon>
                     </TouchableOpacity>
                 </View>
             </React.Fragment>
@@ -58,7 +61,8 @@ const styles = StyleSheet.create({
     backgroundView: {
         flex: 1,
         backgroundColor: '#171616',
-        padding: 20
+        padding: 20,
+        
     },
     fried: {
         padding: 20,
@@ -80,11 +84,28 @@ const styles = StyleSheet.create({
     colorText: {
         color: '#fff'
     },
-    iconsStyle:{
-        left:'90%',
-        fontSize:40,
-        position:'relative',
+    iconsStyle: {
+        marginTop:5,
+        fontSize: 45,
+        color:'#9137E6',       
+
+    },
+    message:{
+        width:'85%',
+        backgroundColor:'#fff',
+        borderRadius:100,
+        fontSize:25,       
+    },
+    viewMessage:{
+
+        height:60,
+        justifyContent: 'space-around',
+        flexDirection:'row',
+        backgroundColor:'#171616',
+        paddingBottom: 10,
         
-    }
+        
+    },
+    
 })
 export default Chat
